@@ -1,0 +1,146 @@
+{{define "base.html"}}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} - My Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/syntax-highlight.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark mode */
+        .dark::-webkit-scrollbar { width: 8px; }
+        .dark::-webkit-scrollbar-track { background: #374151; }
+        .dark::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px; }
+        .dark::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+        
+        /* Enhanced typography for markdown content */
+        .prose { max-width: none; }
+        .prose h1 { @apply text-3xl font-bold text-gray-900 dark:text-white mb-6 mt-8; }
+        .prose h2 { @apply text-2xl font-semibold text-gray-900 dark:text-white mb-4 mt-6; }
+        .prose h3 { @apply text-xl font-medium text-gray-900 dark:text-white mb-3 mt-5; }
+        .prose p { @apply text-gray-700 dark:text-gray-300 mb-4 leading-relaxed; }
+        .prose pre { @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto; }
+        .prose code { @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm; }
+        .prose blockquote { @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 dark:text-gray-400; }
+        .prose ul, .prose ol { @apply mb-4 pl-6; }
+        .prose li { @apply mb-2 text-gray-700 dark:text-gray-300; }
+    </style>
+    <script>
+        // Theme functionality
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        }
+        
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark')
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light')
+        }
+    </script>
+</head>
+<body class="min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        My Blog
+                    </a>
+                    {{block "nav-breadcrumb" .}}{{end}}
+                </div>
+                
+                <!-- Right side navigation -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block">
+                        <form action="/search" method="get" class="relative">
+                            <input type="text" name="q" placeholder="Search posts..." 
+                                   class="w-64 px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
+                                          bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                                          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Theme toggle -->
+                    <button onclick="toggleTheme()" 
+                            class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 
+                                   hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            title="Toggle theme">
+                        <svg class="h-5 w-5 hidden dark:block" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
+                        </svg>
+                        <svg class="h-5 w-5 block dark:hidden" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Social Links -->
+                    <div class="flex items-center space-x-3">
+                        <a href="https://github.com/alex-rosta" target="_blank" rel="noopener noreferrer"
+                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors" 
+                           title="GitHub">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/ro.sta/" target="_blank" rel="noopener noreferrer"
+                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                           title="Instagram">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348zm7.718 0c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348z"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Admin link -->
+                    <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+                        Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile search -->
+        <div class="md:hidden px-4 pb-4">
+            <form action="/search" method="get" class="relative">
+                <input type="text" name="q" placeholder="Search posts..." 
+                       class="w-full px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
+                              bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                              focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        {{block "content" .}}{{end}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+                <p>&copy; 2024 My Blog. Built with Go and love.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+{{end}}
