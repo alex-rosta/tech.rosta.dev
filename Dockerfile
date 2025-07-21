@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
@@ -35,8 +35,11 @@ COPY --from=builder /app/web ./web
 # Create posts directory
 RUN mkdir -p /data/posts
 
+# Copy posts from builder stage
+COPY --from=builder /app/posts /data/posts
+
 # Expose port
-EXPOSE 8080
+EXPOSE 3000
 
 # Set environment variables
 ENV POSTS_DIR=/data/posts

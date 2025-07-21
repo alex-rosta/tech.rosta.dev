@@ -59,7 +59,7 @@ greet('World');
 
 Feel free to explore the different sections of the blog. You can:
 
-1. Browse posts by **tags** 
+1. Browse posts by **tags**
 2. Use the **search** feature to find specific content
 3. Switch between **dark and light** themes
 
