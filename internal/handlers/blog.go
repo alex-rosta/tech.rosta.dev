@@ -11,21 +11,24 @@ import (
 )
 
 type PostData struct {
-	Title string
-	Post  *models.Post
-	HTML  template.HTML
+	Title      string
+	Post       *models.Post
+	HTML       template.HTML
+	Breadcrumb string
 }
 
 type TagData struct {
-	Title string
-	Tag   string
-	Posts []*models.Post
+	Title      string
+	Tag        string
+	Posts      []*models.Post
+	Breadcrumb string
 }
 
 type SearchData struct {
-	Title   string
-	Query   string
-	Results []*models.Post
+	Title      string
+	Query      string
+	Results    []*models.Post
+	Breadcrumb string
 }
 
 func (h *Handlers) handlePost(w http.ResponseWriter, r *http.Request) {
@@ -45,9 +48,10 @@ func (h *Handlers) handlePost(w http.ResponseWriter, r *http.Request) {
 	html := markdown.ToHTML(post.Content)
 
 	data := PostData{
-		Title: post.Title,
-		Post:  post,
-		HTML:  template.HTML(html),
+		Title:      post.Title,
+		Post:       post,
+		HTML:       template.HTML(html),
+		Breadcrumb: post.Title,
 	}
 
 	h.renderTemplate(w, "post.html", data)
@@ -67,9 +71,10 @@ func (h *Handlers) handleTag(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := TagData{
-		Title: "Posts tagged: " + tag,
-		Tag:   tag,
-		Posts: posts,
+		Title:      "Posts tagged: " + tag,
+		Tag:        tag,
+		Posts:      posts,
+		Breadcrumb: "Tag: " + tag,
 	}
 
 	h.renderTemplate(w, "tag.html", data)
@@ -83,9 +88,10 @@ func (h *Handlers) handleAllPosts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := SearchData{
-		Title:   "All Posts",
-		Query:   "",
-		Results: posts,
+		Title:      "All Posts",
+		Query:      "",
+		Results:    posts,
+		Breadcrumb: "All Posts",
 	}
 
 	h.renderTemplate(w, "search.html", data)
@@ -106,9 +112,10 @@ func (h *Handlers) handleSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := SearchData{
-		Title:   "Search Results",
-		Query:   query,
-		Results: results,
+		Title:      "Search Results",
+		Query:      query,
+		Results:    results,
+		Breadcrumb: "Search: " + query,
 	}
 
 	h.renderTemplate(w, "search.html", data)

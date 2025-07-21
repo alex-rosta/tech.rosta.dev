@@ -18,17 +18,9 @@ type Handlers struct {
 }
 
 func New(storage storage.Storage, config *config.Config) *Handlers {
-	// Load templates
-	templates := template.New("")
-
-	// Parse all template files
-	template.Must(templates.ParseGlob("web/templates/layouts/*.html"))
-	template.Must(templates.ParseGlob("web/templates/pages/*.html"))
-
 	return &Handlers{
-		storage:   storage,
-		config:    config,
-		templates: templates,
+		storage: storage,
+		config:  config,
 	}
 }
 
@@ -59,9 +51,29 @@ func (h *Handlers) SetupRoutes(r *chi.Mux) {
 }
 
 func (h *Handlers) renderTemplate(w http.ResponseWriter, name string, data interface{}) {
-	err := h.templates.ExecuteTemplate(w, name, data)
+	// Load templates dynamically for each request to avoid conflicts
+	tmpl := template.New("base.html")
+
+	// Parse base template
+	tmpl, err := tmpl.ParseFiles("web/templates/layouts/base.html")
 	if err != nil {
-		log.Printf("Template error: %v", err)
+		log.Printf("Template parse error (base): %v", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	// Parse the specific page template
+	tmpl, err = tmpl.ParseFiles("web/templates/pages/" + name)
+	if err != nil {
+		log.Printf("Template parse error (%s): %v", name, err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	// Execute the base template
+	err = tmpl.ExecuteTemplate(w, "base.html", data)
+	if err != nil {
+		log.Printf("Template execute error: %v", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }

@@ -10,6 +10,7 @@ type HomeData struct {
 	Title       string
 	RecentPosts []*models.Post
 	AllTags     []string
+	Breadcrumb  string
 }
 
 func (h *Handlers) handleHome(w http.ResponseWriter, r *http.Request) {

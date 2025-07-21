@@ -1,425 +1,68 @@
-<!DOCTYPE html>
-<html lang="en" class="h-full">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{.Post.Title}} - My Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/syntax-highlight.css" />
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-      };
-    </script>
-    <style>
-      .prose {
-        max-width: none;
-      }
-      .prose h1 {
-        font-size: 2.25rem;
-        font-weight: bold;
-        color: #dddee0ff;
-        margin-bottom: 1.5rem;
-        margin-top: 2rem;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 0.5rem;
-      }
-      .prose h2 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #dddfe4ff;
-        margin-bottom: 1rem;
-        margin-top: 2rem;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 0.25rem;
-      }
-      .prose h3 {
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: #dce0e7ff;
-        margin-bottom: 0.75rem;
-        margin-top: 1.5rem;
-      }
-      .prose h4 {
-        font-size: 1.125rem;
-        font-weight: 500;
-        color: #ced1d8ff;
-        margin-bottom: 0.5rem;
-        margin-top: 1.25rem;
-      }
-      .prose h5 {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #eceef3ff;
-        margin-bottom: 0.5rem;
-        margin-top: 1rem;
-      }
-      .prose h6 {
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: #e1e3e7ff;
-        margin-bottom: 0.5rem;
-        margin-top: 1rem;
-      }
-      .prose p {
-        color: #dee1e6ff;
-        margin-bottom: 1rem;
-        line-height: 1.7;
-      }
-      .prose pre {
-        background: #1f2937;
-        color: #f3f4f6;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        overflow-x: auto;
-        margin: 1.5rem 0;
-        border: 1px solid #e5e7eb;
-      }
-      .prose code {
-        background: #f3f4f6;
-        padding: 0.2em 0.4em;
-        border-radius: 0.25rem;
-        font-size: 0.95em;
-        font-family: "Fira Mono", "Menlo", "Monaco", "Consolas", monospace;
-        color: #111827;
-      }
-      .prose pre code {
-        background: transparent;
-        padding: 0;
-        color: #f3f4f6;
-      }
-      .prose blockquote {
-        border-left: 4px solid #3b82f6;
-        padding-left: 1rem;
-        font-style: italic;
-        color: #6b7280;
-        margin: 1.5rem 0;
-      }
-      .prose ul,
-      .prose ol {
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-      }
-      .prose li {
-        margin-bottom: 0.5rem;
-        color: #e5e8eeff;
-      }
-      .prose a {
-        color: #2563eb;
-        text-decoration: underline;
-        transition: color 0.2s;
-      }
-      .prose a:hover {
-        color: #1d4ed8;
-      }
-      .prose strong {
-        font-weight: 600;
-        color: #111827;
-      }
-      .prose em {
-        font-style: italic;
-      }
-      .prose table {
-        min-width: 100%;
-        border-collapse: collapse;
-        border: 1px solid #e5e7eb;
-        margin: 1.5rem 0;
-      }
-      .prose th {
-        border: 1px solid #e5e7eb;
-        background: #f9fafb;
-        padding: 0.5rem 1rem;
-        text-align: left;
-        font-weight: 600;
-      }
-      .prose td {
-        border: 1px solid #e5e7eb;
-        padding: 0.5rem 1rem;
-      }
-    </style>
-    <script>
-      // Theme functionality
-      if (
-        localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      }
-
-      function toggleTheme() {
-        document.documentElement.classList.toggle("dark");
-        localStorage.setItem(
-          "theme",
-          document.documentElement.classList.contains("dark") ? "dark" : "light"
-        );
-      }
-    </script>
-  </head>
-  <body
-    class="min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200"
-  >
-    <!-- Navigation -->
-    <nav
-      class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <!-- Logo and breadcrumb -->
-          <div class="flex items-center">
-            <a
-              href="/"
-              class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              My Blog
-            </a>
-            <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
-              <svg
-                class="w-4 h-4 inline mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
-              </svg>
-              <a
-                href="/"
-                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >Blog</a
-              >
-              <svg
-                class="w-4 h-4 inline mx-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
-              </svg>
-              <span class="text-gray-900 dark:text-white">{{.Post.Title}}</span>
-            </span>
-          </div>
-
-          <!-- Right side navigation -->
-          <div class="flex items-center space-x-4">
-            <!-- Search -->
-            <div class="hidden md:block">
-              <form action="/search" method="get" class="relative">
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search posts..."
-                  class="w-64 px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                />
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                >
-                  <svg
-                    class="h-5 w-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    ></path>
-                  </svg>
-                </div>
-              </form>
-            </div>
-
-            <!-- Theme toggle -->
-            <button
-              onclick="toggleTheme()"
-              class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              title="Toggle theme"
-            >
-              <svg
-                class="h-5 w-5 hidden dark:block"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"
-                ></path>
-              </svg>
-              <svg
-                class="h-5 w-5 block dark:hidden"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                ></path>
-              </svg>
-            </button>
-
-            <!-- Social Links -->
-            <div class="flex items-center space-x-3">
-              <a
-                href="https://github.com/alex-rosta"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                title="GitHub"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-              </a>
-              <a
-                href="https://www.instagram.com/ro.sta/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                title="Instagram"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348zm7.718 0c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348z"
-                  />
-                </svg>
-              </a>
-            </div>
-
-            <!-- Admin link -->
-            <a
-              href="/admin"
-              class="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
-            >
-              Admin
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile search -->
-      <div class="md:hidden px-4 pb-4">
-        <form action="/search" method="get" class="relative">
-          <input
-            type="text"
-            name="q"
-            placeholder="Search posts..."
-            class="w-full px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-          />
-          <div
-            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-          >
-            <svg
-              class="h-5 w-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
-          </div>
-        </form>
-      </div>
-    </nav>
-
-    <!-- Main content -->
-    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
-        <!-- Back navigation -->
-        <div class="mb-8">
-          <a
-            href="/"
-            class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
-          >
-            <svg
-              class="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              ></path>
+{{define "content"}}
+<div class="max-w-4xl mx-auto">
+    <!-- Back navigation -->
+    <div class="mb-8">
+        <a href="/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             Back to Home
-          </a>
-        </div>
+        </a>
+    </div>
 
-        <!-- Article header -->
-        <header class="mb-8">
-          <div
-            class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4"
-          >
+    <!-- Article header -->
+    <header class="mb-8">
+        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
             <time>{{.Post.CreatedAt.Format "January 2, 2006"}}</time>
             {{if .Post.UpdatedAt.After .Post.CreatedAt}}
             <span class="mx-2">•</span>
             <span>Updated {{.Post.UpdatedAt.Format "January 2, 2006"}}</span>
             {{end}}
-          </div>
-
-          <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            {{.Post.Title}}
-          </h1>
-
-          {{if .Post.Tags}}
-          <div class="flex flex-wrap gap-2">
+        </div>
+        
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">{{.Post.Title}}</h1>
+        
+        {{if .Post.Tags}}
+        <div class="flex flex-wrap gap-2">
             {{range .Post.Tags}}
-            <a
-              href="/tag/{{.}}"
-              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-            >
-              {{.}}
+            <a href="/tag/{{.}}" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                {{.}}
             </a>
             {{end}}
-          </div>
-          {{end}}
-        </header>
-
-        <!-- Article content -->
-        <article class="prose prose-lg max-w-none">{{.HTML}}</article>
-
-        <!-- Article footer -->
-        <footer
-          class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
-        >
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">
-                Thanks for reading! Feel free to share this post.
-              </p>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer
-      class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16"
-    >
-      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div class="text-center text-sm text-gray-600 dark:text-gray-400">
-          <p>&copy; 2024 My Blog. Built with Go and love.</p>
         </div>
-      </div>
+        {{end}}
+    </header>
+
+    <!-- Article content -->
+    <article class="prose prose-lg max-w-none">
+        {{.HTML}}
+    </article>
+
+    <!-- Article footer -->
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Thanks for reading! Feel free to share this post.
+                </p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="https://twitter.com/intent/tweet?url={{.Post.Slug}}&text={{.Post.Title}}" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="text-gray-400 hover:text-blue-500 transition-colors" title="Share on Twitter">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{.Post.Slug}}" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="text-gray-400 hover:text-blue-700 transition-colors" title="Share on LinkedIn">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </footer>
-  </body>
-</html>
+</div>
+{{end}}

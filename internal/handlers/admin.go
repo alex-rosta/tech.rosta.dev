@@ -11,14 +11,16 @@ import (
 )
 
 type AdminDashboardData struct {
-	Title string
-	Posts []*models.Post
+	Title      string
+	Posts      []*models.Post
+	Breadcrumb string
 }
 
 type PostFormData struct {
-	Title string
-	Post  *models.Post
-	Mode  string // "new" or "edit"
+	Title      string
+	Post       *models.Post
+	Mode       string // "new" or "edit"
+	Breadcrumb string
 }
 
 func (h *Handlers) handleAdminDashboard(w http.ResponseWriter, r *http.Request) {
@@ -29,8 +31,9 @@ func (h *Handlers) handleAdminDashboard(w http.ResponseWriter, r *http.Request) 
 	}
 
 	data := AdminDashboardData{
-		Title: "Admin Dashboard",
-		Posts: posts,
+		Title:      "Admin Dashboard",
+		Posts:      posts,
+		Breadcrumb: "Admin",
 	}
 
 	h.renderTemplate(w, "admin_dashboard.html", data)
@@ -38,9 +41,10 @@ func (h *Handlers) handleAdminDashboard(w http.ResponseWriter, r *http.Request) 
 
 func (h *Handlers) handleNewPost(w http.ResponseWriter, r *http.Request) {
 	data := PostFormData{
-		Title: "New Post",
-		Post:  &models.Post{},
-		Mode:  "new",
+		Title:      "New Post",
+		Post:       &models.Post{},
+		Mode:       "new",
+		Breadcrumb: "Admin > New Post",
 	}
 
 	h.renderTemplate(w, "admin_post_form.html", data)
@@ -101,9 +105,10 @@ func (h *Handlers) handleEditPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := PostFormData{
-		Title: "Edit Post: " + post.Title,
-		Post:  post,
-		Mode:  "edit",
+		Title:      "Edit Post: " + post.Title,
+		Post:       post,
+		Mode:       "edit",
+		Breadcrumb: "Admin > Edit Post",
 	}
 
 	h.renderTemplate(w, "admin_post_form.html", data)

@@ -5,8 +5,6 @@ created: 2024-01-01
 updated: 2024-01-01
 ---
 
-# Welcome to My Blog
-
 Hello and welcome to my personal blog! This is my first post on this platform, built with **Go** and modern web technologies.
 
 ## What You Can Expect
@@ -21,11 +19,13 @@ This blog will cover a variety of topics including:
 ## Features of This Blog
 
 ### Modern Design
+
 - ✅ **Dark/Light Mode**: Toggle between themes
 - ✅ **Responsive Design**: Works on all devices
 - ✅ **Clean Typography**: Easy to read content
 
 ### Powerful Functionality
+
 - 🔍 **Search**: Find posts by title, tags, or headers
 - 🏷️ **Tags**: Organize content by topics
 - 📝 **Markdown Support**: Rich text formatting
@@ -64,7 +64,3 @@ Feel free to explore the different sections of the blog. You can:
 3. Switch between **dark and light** themes
 
 Thank you for visiting, and I hope you find the content useful!
-
----
-
-*Happy coding! 🚀*

@@ -5,3 +5,5 @@ go.sum
 .DS_Store
 .vscode
 go.mod
+syntax-highlighting.css
+/tmp

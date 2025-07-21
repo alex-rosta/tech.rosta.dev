@@ -1,215 +1,149 @@
-{{define "admin_post_form.html"}}
-<!DOCTYPE html>
-<html lang="en" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}} - My Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-        function toggleTheme() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark')
-                localStorage.setItem('theme', 'light')
-            } else {
-                document.documentElement.classList.add('dark')
-                localStorage.setItem('theme', 'dark')
-            }
-        }
-    </script>
-</head>
-<body class="min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-    <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        My Blog
-                    </a>
-                    <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">Admin</span>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                    <button onclick="toggleTheme()" class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                        <svg class="h-5 w-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2L13.09 8.26L20 9L14 14.74L15.18 21.02L10 18L4.82 21.02L6 14.74L0 9L6.91 8.26L10 2Z"></path>
-                        </svg>
-                        <svg class="h-5 w-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 3.314-2.686 6-6 6a5.953 5.953 0 01-4.657-2.191 8.074 8.074 0 01-.311-.832 8.05 8.05 0 01-.023-.116A8.014 8.014 0 014.332 8.027z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
+{{define "content"}}
+<!-- Back to admin -->
+<div class="mb-8">
+    <a href="/admin" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Admin
+    </a>
+</div>
 
-                    <form method="post" action="/logout" class="inline">
-                        <button type="submit" class="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
+<!-- Form -->
+<div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{.Title}}</h1>
+    </div>
+
+    <form method="post" action="{{if eq .Mode "edit"}}/admin/posts/{{.Post.Slug}}{{else}}/admin/posts{{end}}" class="px-6 py-6 space-y-6">
+        {{if eq .Mode "edit"}}
+        <input type="hidden" name="_method" value="PUT">
+        {{end}}
+
+        <!-- Title -->
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Title
+            </label>
+            <input type="text" 
+                   id="title" 
+                   name="title" 
+                   value="{{.Post.Title}}"
+                   required
+                   class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
+                          bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                          placeholder-gray-500 dark:placeholder-gray-400
+                          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent">
         </div>
-    </nav>
 
-    <!-- Main content -->
-    <main class="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <!-- Back to admin -->
-        <div class="mb-8">
-            <a href="/admin" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back to Admin
+        <!-- Tags -->
+        <div>
+            <label for="tags" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Tags (comma-separated)
+            </label>
+            <input type="text" 
+                   id="tags" 
+                   name="tags" 
+                   value="{{range $i, $tag := .Post.Tags}}{{if $i}}, {{end}}{{$tag}}{{end}}"
+                   placeholder="go, web development, tutorial"
+                   class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
+                          bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                          placeholder-gray-500 dark:placeholder-gray-400
+                          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Separate tags with commas</p>
+        </div>
+
+        <!-- Content -->
+        <div>
+            <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Content (Markdown)
+            </label>
+            <div class="relative">
+                <textarea id="content" 
+                          name="content" 
+                          rows="20" 
+                          required
+                          placeholder="Write your post content in Markdown format..."
+                          class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
+                                 bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                 placeholder-gray-500 dark:placeholder-gray-400
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent
+                                 font-mono text-sm">{{.Post.Content}}</textarea>
+            </div>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Supports Markdown formatting. Front matter will be automatically added.
+            </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex space-x-3">
+                <button type="submit" 
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm 
+                               text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 
+                               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    {{if eq .Mode "edit"}}Update Post{{else}}Create Post{{end}}
+                </button>
+
+                {{if eq .Mode "edit"}}
+                <a href="/post/{{.Post.Slug}}" 
+                   target="_blank"
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md
+                          text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600
+                          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Preview
+                </a>
+                {{end}}
+            </div>
+
+            <a href="/admin" 
+               class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md
+                      text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600
+                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                Cancel
             </a>
         </div>
+    </form>
+</div>
 
-        <!-- Form -->
-        <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{.Title}}</h1>
+<!-- Markdown Help -->
+<div class="mt-8 bg-blue-50 dark:bg-gray-800 border border-blue-200 dark:border-gray-700 rounded-lg p-6">
+    <h3 class="text-lg font-medium text-blue-900 dark:text-blue-100 mb-4">Markdown Quick Reference</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div class="space-y-2">
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded"># Heading 1</code>
             </div>
-
-            <form method="post" action="{{if eq .Mode "edit"}}/admin/posts/{{.Post.Slug}}{{else}}/admin/posts{{end}}" class="px-6 py-6 space-y-6">
-                {{if eq .Mode "edit"}}
-                <input type="hidden" name="_method" value="PUT">
-                {{end}}
-
-                <!-- Title -->
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Title
-                    </label>
-                    <input type="text" 
-                           id="title" 
-                           name="title" 
-                           value="{{.Post.Title}}"
-                           required
-                           class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
-                                  bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                                  placeholder-gray-500 dark:placeholder-gray-400
-                                  focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent">
-                </div>
-
-                <!-- Tags -->
-                <div>
-                    <label for="tags" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Tags (comma-separated)
-                    </label>
-                    <input type="text" 
-                           id="tags" 
-                           name="tags" 
-                           value="{{range $i, $tag := .Post.Tags}}{{if $i}}, {{end}}{{$tag}}{{end}}"
-                           placeholder="go, web development, tutorial"
-                           class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
-                                  bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                                  placeholder-gray-500 dark:placeholder-gray-400
-                                  focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent">
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Separate tags with commas</p>
-                </div>
-
-                <!-- Content -->
-                <div>
-                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Content (Markdown)
-                    </label>
-                    <div class="relative">
-                        <textarea id="content" 
-                                  name="content" 
-                                  rows="20" 
-                                  required
-                                  placeholder="Write your post content in Markdown format..."
-                                  class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm
-                                         bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                                         placeholder-gray-500 dark:placeholder-gray-400
-                                         focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent
-                                         font-mono text-sm">{{.Post.Content}}</textarea>
-                    </div>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        Supports Markdown formatting. Front matter will be automatically added.
-                    </p>
-                </div>
-
-                <!-- Actions -->
-                <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <div class="flex space-x-3">
-                        <button type="submit" 
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm 
-                                       text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 
-                                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            {{if eq .Mode "edit"}}Update Post{{else}}Create Post{{end}}
-                        </button>
-
-                        {{if eq .Mode "edit"}}
-                        <a href="/post/{{.Post.Slug}}" 
-                           target="_blank"
-                           class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md
-                                  text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600
-                                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                            </svg>
-                            Preview
-                        </a>
-                        {{end}}
-                    </div>
-
-                    <a href="/admin" 
-                       class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md
-                              text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600
-                              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
-                        Cancel
-                    </a>
-                </div>
-            </form>
-        </div>
-
-        <!-- Markdown Help -->
-        <div class="mt-8 bg-blue-50 dark:bg-gray-800 border border-blue-200 dark:border-gray-700 rounded-lg p-6">
-            <h3 class="text-lg font-medium text-blue-900 dark:text-blue-100 mb-4">Markdown Quick Reference</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div class="space-y-2">
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded"># Heading 1</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">## Heading 2</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">**bold text**</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">*italic text*</code>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">[link text](url)</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">```code block```</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">- list item</code>
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300">
-                        <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">> blockquote</code>
-                    </div>
-                </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">## Heading 2</code>
+            </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">**bold text**</code>
+            </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">*italic text*</code>
             </div>
         </div>
-    </main>
-</body>
-</html>
+        <div class="space-y-2">
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">[link text](url)</code>
+            </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">```code block```</code>
+            </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">- list item</code>
+            </div>
+            <div class="text-gray-700 dark:text-gray-300">
+                <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">> blockquote</code>
+            </div>
+        </div>
+    </div>
+</div>
 {{end}}

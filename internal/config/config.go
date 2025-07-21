@@ -30,7 +30,7 @@ func Load() *Config {
 		GitHubSecret:   getEnv("CLIENT_SECRET", ""),
 		SessionSecret:  getEnv("SESSION_SECRET", "your-secret-key-change-in-production"),
 		AllowedUsers:   allowedUsers,
-		BaseURL:        getEnv("BASE_URL", "http://localhost:8080"),
+		BaseURL:        getEnv("BASE_URL", "http://localhost:3000"),
 		Port:           getEnv("PORT", "8080"),
 	}
 }

@@ -1,0 +1,145 @@
+.prose {
+        max-width: none;
+      }
+      .prose h1 {
+        font-size: 2.25rem;
+        font-weight: bold;
+        color: rgb(30, 31, 34);
+        margin-bottom: 1.5rem;
+        margin-top: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+      }
+      .dark .prose h1 {
+        color: #f3f4f6;
+      }
+      .prose h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: rgb(30, 31, 34);
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.25rem;
+      }
+        .dark .prose h2 {
+            color: #f3f4f6;
+        }
+      .prose h3 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: rgb(30, 31, 34);
+        margin-bottom: 0.75rem;
+        margin-top: 1.5rem;
+      }
+        .dark .prose h3 {
+            color: #f3f4f6;
+        }
+      .prose h4 {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: rgb(30, 31, 34);
+        margin-bottom: 0.5rem;
+        margin-top: 1.25rem;
+      }
+        .dark .prose h4 {
+            color: #f3f4f6;
+        }
+      .prose h5 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgb(30, 31, 34);
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+      }
+      .prose h6 {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #e1e3e7ff;
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+      }
+      .prose p {
+        color: rgb(30, 31, 34);
+        margin-bottom: 1rem;
+        line-height: 1.7;
+      }
+        .dark .prose p {
+            color: #f3f4f6;
+        }
+      .prose pre {
+        background: #1f2937;
+        color: #f3f4f6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        border: 1px solid #e5e7eb;
+      }
+      .prose code {
+        background: #f3f4f6;
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.95em;
+        font-family: "Fira Mono", "Menlo", "Monaco", "Consolas", monospace;
+        color: #111827;
+      }
+      .prose pre code {
+        background: transparent;
+        padding: 0;
+        color: #f3f4f6;
+      }
+      .prose blockquote {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+        font-style: italic;
+        color: #6b7280;
+        margin: 1.5rem 0;
+      }
+      .prose ul,
+      .prose ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+      }
+      .prose li {
+        margin-bottom: 0.5rem;
+        color: rgb(30, 31, 34);
+      }
+      .dark .prose li {
+        color: #f3f4f6;
+      }
+      .prose a {
+        color: #2563eb;
+        text-decoration: underline;
+        transition: color 0.2s;
+      }
+      .prose a:hover {
+        color: #1d4ed8;
+      }
+      .prose strong {
+        font-weight: 600;
+        color: rgb(30, 31, 34);
+      }
+        .dark .prose strong {
+            color: #f3f4f6;
+        }
+      .prose em {
+        font-style: italic;
+      }
+      .prose table {
+        min-width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #e5e7eb;
+        margin: 1.5rem 0;
+      }
+      .prose th {
+        border: 1px solid #e5e7eb;
+        background: #f9fafb;
+        padding: 0.5rem 1rem;
+        text-align: left;
+        font-weight: 600;
+      }
+      .prose td {
+        border: 1px solid #e5e7eb;
+        padding: 0.5rem 1rem;
+      }

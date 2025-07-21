@@ -29,9 +29,11 @@ func (h *Handlers) getOAuthConfig() *oauth2.Config {
 
 func (h *Handlers) handleLogin(w http.ResponseWriter, r *http.Request) {
 	data := struct {
-		Title string
+		Title      string
+		Breadcrumb string
 	}{
-		Title: "Login",
+		Title:      "Login",
+		Breadcrumb: "Login",
 	}
 
 	h.renderTemplate(w, "login.html", data)
