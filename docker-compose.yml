@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./web:/app/web
+      - ./posts:/app/posts
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - ALLOWED_USERS=${ALLOWED_USERS}
+      - PORT=3000
+    restart: always
+    networks:
+      - goblog-network
