@@ -1,86 +1,128 @@
 {{define "nav-breadcrumb"}}
 <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">Admin</span>
-{{end}}
-
-{{define "content"}}
+{{end}} {{define "content"}}
 <div class="flex justify-between items-center mb-8">
-    <div>
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{.Title}}</h1>
-        <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your blog posts</p>
-    </div>
-    <a href="/admin/new" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-        </svg>
-        New Post
-    </a>
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{.Title}}</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your blog posts</p>
+  </div>
+  <a
+    href="/admin/new"
+    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
+  >
+    <svg
+      class="w-4 h-4 mr-2"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 4v16m8-8H4"
+      ></path>
+    </svg>
+    New Post
+  </a>
 </div>
 
 <!-- Posts List -->
 {{if .Posts}}
-<div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">All Posts ({{len .Posts}})</h3>
-    </div>
-    <div class="divide-y divide-gray-200 dark:divide-gray-700">
-        {{range .Posts}}
-        <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-            <div class="flex items-center justify-between">
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-medium text-gray-900 dark:text-white truncate">
-                                <a href="/post/{{.Slug}}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank">
-                                    {{.Title}}
-                                </a>
-                            </h4>
-                            <div class="mt-1 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-                                <span>Created: {{.CreatedAt.Format "Jan 2, 2006"}}</span>
-                                {{if .UpdatedAt.After .CreatedAt}}
-                                <span>Updated: {{.UpdatedAt.Format "Jan 2, 2006"}}</span>
-                                {{end}}
-                                <span>Slug: {{.Slug}}</span>
-                            </div>
-                            {{if .Tags}}
-                            <div class="mt-2 flex flex-wrap gap-1">
-                                {{range .Tags}}
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                    {{.}}
-                                </span>
-                                {{end}}
-                            </div>
-                            {{end}}
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <a href="/admin/posts/{{.Slug}}/edit" class="inline-flex items-center px-3 py-1 border border-gray-300 dark:border-gray-600 shadow-sm text-xs font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                        Edit
-                    </a>
-                    <form method="post" action="/admin/posts/{{.Slug}}" class="inline" onsubmit="return confirm('Are you sure you want to delete this post?')">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="inline-flex items-center px-3 py-1 border border-red-300 dark:border-red-600 shadow-sm text-xs font-medium rounded-md text-red-700 dark:text-red-300 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900 transition-colors">
-                            Delete
-                        </button>
-                    </form>
-                </div>
+<div
+  class="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+>
+  <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+    <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+      All Posts ({{len .Posts}})
+    </h3>
+  </div>
+  <div class="divide-y divide-gray-200 dark:divide-gray-700">
+    {{range .Posts}}
+    <div
+      class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center space-x-4">
+            <div class="flex-1">
+              <h4
+                class="text-sm font-medium text-gray-900 dark:text-white truncate"
+              >
+                <a
+                  href="/post/{{.Slug}}"
+                  class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  target="_blank"
+                >
+                  {{.Title}}
+                </a>
+              </h4>
+              <div
+                class="mt-1 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
+              >
+                <span>Created: {{.CreatedAt.Format "Jan 2, 2006"}}</span>
+                {{if .UpdatedAt.After .CreatedAt}}
+                <span>Updated: {{.UpdatedAt.Format "Jan 2, 2006"}}</span>
+                {{end}}
+                <span>Slug: {{.Slug}}</span>
+              </div>
+              {{if .Tags}}
+              <div class="mt-2 flex flex-wrap gap-1">
+                {{range .Tags}}
+                <span
+                  class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                >
+                  {{.}}
+                </span>
+                {{end}}
+              </div>
+              {{end}}
             </div>
+          </div>
         </div>
-        {{end}}
+        <div class="flex items-center space-x-2">
+          <a
+            href="/admin/posts/{{.Slug}}/edit"
+            class="inline-flex items-center px-3 py-1 border border-gray-300 dark:border-gray-600 shadow-sm text-xs font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+          >
+            Edit
+          </a>
+          <form
+            method="post"
+            action="/admin/posts/{{.Slug}}"
+            class="inline"
+            onsubmit="return confirm('Are you sure you want to delete this post?')"
+          >
+            <input type="hidden" name="_method" value="DELETE" />
+            <button
+              type="submit"
+              class="inline-flex items-center px-3 py-1 border border-red-300 dark:border-red-600 shadow-sm text-xs font-medium rounded-md text-red-700 dark:text-red-300 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900 transition-colors"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+    {{end}}
+  </div>
 </div>
 {{else}}
 <div class="text-center py-12">
-    <div class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500 mb-4">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-        </svg>
-    </div>
-    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No posts yet</h3>
-    <p class="text-gray-500 dark:text-gray-400 mb-4">Get started by creating your first blog post.</p>
-    <a href="/admin/new" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors">
-        Create Post
-    </a>
+  <div class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500 mb-4">
+    <i class="bi bi-search"></i>
+  </div>
+  <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
+    No posts yet
+  </h3>
+  <p class="text-gray-500 dark:text-gray-400 mb-4">
+    Get started by creating your first blog post.
+  </p>
+  <a
+    href="/admin/new"
+    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
+  >
+    Create Post
+  </a>
 </div>
-{{end}}
-{{end}}
+{{end}} {{end}}

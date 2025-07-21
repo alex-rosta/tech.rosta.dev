@@ -1,151 +1,192 @@
 {{define "base.html"}}
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{block "title" .}}{{.Title}} - My Blog{{end}}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/syntax-highlight.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/syntax-highlight.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
+      tailwind.config = {
+        darkMode: "class",
+      };
     </script>
-    <link rel="stylesheet" href="/static/prose.css">
-    {{block "extra-styles" .}}{{end}}
-    {{block "extra-head" .}}{{end}}
+    <link rel="stylesheet" href="/static/prose.css" />
+    {{block "extra-styles" .}}{{end}} {{block "extra-head" .}}{{end}}
     <script>
-        // Theme functionality
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        }
-        
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark')
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light')
-        }
+      // Theme functionality
+      if (
+        localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+
+      function toggleTheme() {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem(
+          "theme",
+          document.documentElement.classList.contains("dark") ? "dark" : "light"
+        );
+      }
     </script>
-</head>
-<body class="min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+  </head>
+  <body
+    class="min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200"
+  >
     <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo and breadcrumb -->
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        My Blog
-                    </a>
-                    {{if .Breadcrumb}}
-                    <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
-                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Blog</a>
-                        <svg class="w-4 h-4 inline mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                        <span class="text-gray-900 dark:text-white">{{.Breadcrumb}}</span>
-                    </span>
-                    {{end}}
-                    {{block "nav-breadcrumb" .}}{{end}}
-                </div>
-                
-                <!-- Right side navigation -->
-                <div class="flex items-center space-x-4">
-                    <!-- Search -->
-                    <div class="hidden md:block">
-                        <form action="/search" method="get" class="relative">
-                            <input type="text" name="q" placeholder="Search posts..." 
-                                   class="w-64 px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
-                                          bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
-                                          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Theme toggle -->
-                    <button onclick="toggleTheme()" 
-                            class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 
-                                   hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                            title="Toggle theme">
-                        <i class="bi bi-yin-yang"></i>
-                    </button>
+    <nav
+      class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo and breadcrumb -->
+          <div class="flex items-center">
+            <a
+              href="/"
+              class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              tech.rosta.dev
+            </a>
+          </div>
 
-                    <!-- Social Links -->
-                    <div class="flex items-center space-x-3">
-                        <a href="https://github.com/alex-rosta" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors" 
-                           title="GitHub">
-                            <i class="bi bi-git"></i>
-                        </a>
-                        <a href="https://www.instagram.com/ro.sta/" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                           title="Instagram">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/alex-rosta/" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                           title="LinkedIn">
-                            <i class="bi bi-linkedin"></i>
-                        </a>
-                        <a href="https://rosta.dev" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                           title="Personal Site">
-                            <i class="bi bi-person-circle"></i>
-                        </a>
-                        <a href="https://open.spotify.com/playlist/5whHI7frkx9JgpYVV1RzKh?si=52b6961020ae4875" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                           title="Spotify">
-                            <i class="bi bi-spotify"></i>
-                        </a>
-                    </div>
-
-                    <!-- Admin link -->
-                    <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
-                        Admin
-                    </a>
+          <!-- Right side navigation -->
+          <div class="flex items-center space-x-4">
+            <!-- Search -->
+            <div class="hidden md:block">
+              <form action="/search" method="get" class="relative">
+                <input
+                  type="text"
+                  name="q"
+                  placeholder="Search posts..."
+                  class="w-64 px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                />
+                <div
+                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                >
+                  <i class="bi bi-search"></i>
                 </div>
+              </form>
             </div>
+
+            <!-- Theme toggle -->
+            <button
+              onclick="toggleTheme()"
+              class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              title="Toggle theme"
+            >
+              <i class="bi bi-yin-yang"></i>
+            </button>
+
+            <!-- Social Links -->
+            <div class="flex items-center space-x-3">
+              <a
+                href="https://github.com/alex-rosta"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                title="GitHub"
+              >
+                <i class="bi bi-git"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/ro.sta/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                title="Instagram"
+              >
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/alex-rosta/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                title="LinkedIn"
+              >
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a
+                href="https://rosta.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                title="Personal Site"
+              >
+                <i class="bi bi-person-circle"></i>
+              </a>
+              <a
+                href="https://open.spotify.com/playlist/5whHI7frkx9JgpYVV1RzKh?si=52b6961020ae4875"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                title="Spotify"
+              >
+                <i class="bi bi-spotify"></i>
+              </a>
+            </div>
+
+            <!-- Admin link -->
+            <a
+              href="/admin"
+              class="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+            >
+              Admin
+            </a>
+          </div>
         </div>
-        
-        <!-- Mobile search -->
-        <div class="md:hidden px-4 pb-4">
-            <form action="/search" method="get" class="relative">
-                <input type="text" name="q" placeholder="Search posts..." 
-                       class="w-full px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
-                              bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
-                              focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
-            </form>
-        </div>
+      </div>
+
+      <!-- Mobile search -->
+      <div class="md:hidden px-4 pb-4">
+        <form action="/search" method="get" class="relative">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search posts..."
+            class="w-full px-4 py-2 pl-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+          />
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <i class="bi bi-search"></i>
+          </div>
+        </form>
+      </div>
     </nav>
 
     <!-- Main content -->
     <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {{block "content" .}}{{end}}
+      {{block "content" .}}{{end}}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div class="text-center text-sm text-gray-600 dark:text-gray-400">
-              <strong>Want to host your own blog? <a href="https://github.com/alex-rosta/goblog" target="_blank" rel="noopener noreferrer"
-              class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">Check out the tutorial</a></strong>
-            </div>
+    <footer
+      class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16"
+    >
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+          <strong
+            >Want to host your own blog?
+            <a
+              href="https://github.com/alex-rosta/goblog"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+              >Check out the tutorial</a
+            ></strong
+          >
         </div>
+      </div>
     </footer>
     {{block "extra-scripts" .}}{{end}}
-</body>
+  </body>
 </html>
 {{end}}
