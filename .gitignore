@@ -5,5 +5,8 @@ go.sum
 .DS_Store
 .vscode
 go.mod
-syntax-highlighting.css
 /tmp
+syntax-highlight.css
+*.json
+package-lock.json
+package.json
