@@ -1,13 +1,13 @@
 {{define "content"}}
 <!-- Hero Section -->
 <div
-  class="text-center py-12 bg-[url('https://i.imgur.com/0hlumYO.jpeg')] bg-cover bg-center dark:bg-[url('https://i.imgur.com/0hlumYO.jpeg')] dark:bg-cover dark:bg-center rounded-lg mb-8"
+  class="text-center py-12 bg-gradient-to-r from-blue-400 via-white to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-blue-900 dark:to-gray-800 rounded-lg mb-8"
 >
-  <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+  <h1 class="text-4xl font-bold text-gray-900 font-mono dark:text-white mb-4">
     Tech write-ups and tutorials
   </h1>
-  <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-    Sharing thoughts, tutorials etc. Main focus is infrastructure, DevOps and code.
+  <p class="text-xl text-gray-700 dark:text-white max-w-2xl mx-auto">
+    Sharing thoughts, tutorials etc. Main focus is tech and IT.
   </p>
 </div>
 
@@ -15,7 +15,7 @@
 {{if .RecentPosts}}
 <section class="mb-12">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    <h2 class="text-2xl font-bold font-mono text-gray-900 dark:text-white">
       Recent Posts
     </h2>
     <a
@@ -33,12 +33,12 @@
     >
       <div class="p-6">
         <div class="flex items-center justify-between mb-3">
-          <time class="text-sm text-gray-500 dark:text-gray-400">
-            {{.CreatedAt.Format "Jan 2, 2006"}}
+          <time class="text-sm text-gray-500 font-mono dark:text-gray-400">
+            {{.CreatedAt.Format "2006-01-02"}}
           </time>
           {{if .UpdatedAt.After .CreatedAt}}
           <span
-            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
           >
             <i class="bi bi-arrow-repeat mr-1"></i>
             Updated
@@ -128,7 +128,7 @@
 <!-- Popular Tags Section -->
 {{if .AllTags}}
 <section>
-  <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+  <h2 class="text-2xl font-bold font-mono text-gray-900 dark:text-white mb-6">
     Explore Topics
   </h2>
   <div class="flex flex-wrap gap-3">
