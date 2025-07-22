@@ -4,9 +4,6 @@ tags: "go, web development, tutorial, backend"
 created: 2025-07-21
 updated: 2025-07-21
 ---
-
-## Host this Blog Yourself
-
 In this tutorial, I'll walk you through the steps to host this blog on your own server or PC using Go and Docker. This blog is built with modern web technologies and is designed to be easy to deploy.
 
 ### Prerequisites

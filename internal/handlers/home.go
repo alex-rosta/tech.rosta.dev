@@ -15,7 +15,7 @@ type HomeData struct {
 
 func (h *Handlers) handleHome(w http.ResponseWriter, r *http.Request) {
 	// Get recent posts
-	recentPosts, err := h.storage.GetRecentPosts(5)
+	recentPosts, err := h.storage.GetRecentPosts(6)
 	if err != nil {
 		http.Error(w, "Error loading posts", http.StatusInternalServerError)
 		return

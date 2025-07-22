@@ -4,7 +4,7 @@
   <div class="mb-8">
     <a
       href="/"
-      class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+      class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:scale-105 hover:-translate-y-1 transition-all duration-600 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
     >
       <i class="bi bi-arrow-left-circle-fill text-xl"></i>
     </a>
@@ -41,7 +41,11 @@
   </header>
 
   <!-- Article content -->
-  <article class="prose prose-lg max-w-none">{{.HTML}}</article>
+  <article class="prose prose-lg max-w-none">
+    <div class="bg-white dark:bg-gray-900/80 rounded-xl shadow-md p-8 border border-gray-200 dark:border-gray-700">
+      {{.HTML}}
+    </div>
+  </article>
 
   <!-- Article footer -->
   <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">

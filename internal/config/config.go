@@ -5,13 +5,8 @@ import (
 )
 
 type Config struct {
-	PostsDir       string
-	GitHubClientID string
-	GitHubSecret   string
-	SessionSecret  string
-	AllowedUsers   []string
-	BaseURL        string
-	Port           string
+	PostsDir string
+	Port     string
 }
 
 func getEnv(key, defaultValue string) string {

@@ -69,22 +69,6 @@ func (fs *FilesystemStorage) GetPost(slug string) (*models.Post, error) {
 	return fs.parseMarkdownFile(path)
 }
 
-func (fs *FilesystemStorage) SavePost(post *models.Post) error {
-	filename := post.Slug + ".md"
-	path := filepath.Join(fs.postsDir, filename)
-
-	content := fs.formatMarkdownContent(post)
-
-	return os.WriteFile(path, []byte(content), 0644)
-}
-
-func (fs *FilesystemStorage) DeletePost(slug string) error {
-	filename := slug + ".md"
-	path := filepath.Join(fs.postsDir, filename)
-
-	return os.Remove(path)
-}
-
 func (fs *FilesystemStorage) SearchPosts(query string) ([]*models.Post, error) {
 	posts, err := fs.ListPosts()
 	if err != nil {
