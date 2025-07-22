@@ -1,10 +1,8 @@
 .env
 /static
 /node_modules
-go.sum
 .DS_Store
 .vscode
-go.mod
 /tmp
 syntax-highlight.css
 *.json
