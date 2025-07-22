@@ -41,7 +41,7 @@ func (h *Handlers) handleHome(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := HomeData{
-		Title:       "My Blog",
+		Title:       "Dashboard",
 		RecentPosts: recentPosts,
 		AllTags:     allTags,
 	}

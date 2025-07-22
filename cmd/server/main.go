@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"goblog/internal/config"
 	"goblog/internal/handlers"
@@ -20,7 +19,7 @@ func main() {
 		log.Printf("No .env file found: %v", err)
 	}
 	// Load configuration
-	cfg := config.Load()
+	cfg := config.LoadEnv()
 
 	// Initialize storage
 	store := storage.NewFilesystemStorage(cfg.PostsDir)
@@ -42,10 +41,7 @@ func main() {
 	// Routes
 	h.SetupRoutes(r)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
-	}
+	port := cfg.Port
 
 	log.Printf("Starting server on port %s", port)
 	if err := http.ListenAndServe(":"+port, r); err != nil {
