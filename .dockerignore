@@ -1,12 +1,5 @@
-# flyctl launch added from .gitignore
-**\.env
-static
+*.env
 node_modules
-**\.DS_Store
-**\.vscode
 tmp
-**\syntax-highlight.css
-**\*.json
-**\package-lock.json
-**\package.json
+syntax-highlight.css
 fly.toml
