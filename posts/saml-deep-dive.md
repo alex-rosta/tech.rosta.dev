@@ -25,8 +25,6 @@ Example IdP metadata:
     <IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
         <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.com/saml/sso" />
         <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.com/saml/sso" />
-        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://idp.com/saml/sso" />
-
         <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.com/saml/slo" />
         <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.com/saml/slo" />
         <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://idp.com/saml/slo" />
@@ -156,5 +154,6 @@ The assertion contains the following key elements:
 
 - `saml:Issuer`: To make sure the SP can verify the response is from the expected IdP.
 - `saml:AttributeStatement`: Contains user attributes like `userpersonalnumber` and `mail`. These attributes are used by the SP to validate the user exists and authorize access to resources.
+- `saml:Subject`: Contains the `NameID` element, in this case **transient**. Which means it's a randomly generated identifier that is unique to the session. If it was **persistent**, it would be a stable identifier for the SP verify the user based on this string value.
 
 This is all it takes for a successful SAML authentication flow. The SP receives the assertion, verifies the signature using the IdP's public key, and extracts the user's identity information. All using XML based protocols.
