@@ -16,7 +16,7 @@ In this post, I want to share the various technologies and infrastructure I rely
 ### Civo
 
 - **Usage**: Kubernetes clusters and managed databases.
-- **Note**: Focused on simplicity and ease of use for developers. Using it primarily for K3S with their Terraform provider. Check out this [blog post](https://www.civo.com/learn/terraform-kubernetes-cluster) for my implementation. :computer:
+- **Note**: Focused on simplicity and ease of use for developers. Using it primarily for K3S with their Terraform provider. Check out this [blog post](https://tech.rosta.dev/post/civo-terraform) for my implementation. :computer:
 
 ### Akeyless
 

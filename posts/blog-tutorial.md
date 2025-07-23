@@ -6,6 +6,8 @@ updated: 2025-07-23
 ---
 In this tutorial, I'll walk you through the steps to host this blog on your own server or PC using Go and Docker. This blog is built with modern web technologies and is designed to be easy to deploy.
 
+![image](https://perfectmediaserver.com/images/logos/docker-logo-horizontal.png)
+
 ### Prerequisites
 
 - **Docker**: Make sure you have Docker installed on your machine.
