@@ -2,7 +2,7 @@
 title: "K3s on Civo with Terraform"
 created: 2025-07-23
 updated: 2025-07-23
-tags: "civo, terraform, kubernetes, gitops"
+tags: "civo, terraform, kubernetes, gitops, akeyless"
 ---
 Let's go through how I've setup easy deployment of containerized applications using [Civo's K3s](https://www.civo.com/kubernetes), Helm, ArgoCD, all built using Terraform.
 Git repository: [alex-rosta/civo-env](https://github.com/alex-rosta/civo-env)
@@ -12,7 +12,7 @@ Git repository: [alex-rosta/civo-env](https://github.com/alex-rosta/civo-env)
 
 - **GitOps**: All infrastructure and application deployments are managed through Git, ensuring version control and traceability.
 - **Simplicity**: Lightweight K3s.
-- **Secrets offloaded**: Nearly all are called from Akeyless during deployment.
+- **Secrets offloaded**: Nearly all are called from [Akeyless](https://www.akeyless.io/) during deployment.
 - **Split deployment for infrastructure and applications**: Infrastructure is deployed first, followed by the applications layer.
 
 ### Secrets and State file
