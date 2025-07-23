@@ -2,6 +2,7 @@
 title: "Infrastructure and Technologies I Use Personally"
 tags: "welcome, personal, it-infrastructure"
 created: 2025-07-21
+updated: 2025-07-23
 ---
 In this post, I want to share the various technologies and infrastructure I rely on in my personal projects, usually with generous free tiers or open-source options.
 

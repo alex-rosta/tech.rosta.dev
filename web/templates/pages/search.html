@@ -59,7 +59,7 @@
   >
     <div class="flex items-center justify-between mb-3">
       <time class="text-sm text-gray-500 dark:text-gray-400">
-        {{.CreatedAt.Format "Jan 2, 2006"}}
+        {{.CreatedAt.Format "2006-01-02"}}
       </time>
       {{if .UpdatedAt.After .CreatedAt}}
       <span

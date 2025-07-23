@@ -1,6 +1,6 @@
 ---
-title: "Host this Blog Yourself"
-tags: "go, web development, tutorial, backend"
+title: "Host this Blog"
+tags: "go, web development, tutorial, backend, docker"
 created: 2025-07-21
 updated: 2025-07-23
 ---
