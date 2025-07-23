@@ -4,8 +4,9 @@ created: 2025-07-23
 updated: 2025-07-23
 tags: "civo, terraform, kubernetes, gitops"
 ---
-Let's go through how I've setup easy deployment of containerized applications using Civo's K3s, Helm, ArgoCD, all built using Terraform.
+Let's go through how I've setup easy deployment of containerized applications using [Civo's K3s](https://www.civo.com/kubernetes), Helm, ArgoCD, all built using Terraform.
 Git repository: [alex-rosta/civo-env](https://github.com/alex-rosta/civo-env)
+![image](https://www.milesweb.in/blog/wp-content/uploads/2023/01/kubernetes-vs-terraform-pros-cons-and-their-differences.png)
 
 ## Philosophy
 
