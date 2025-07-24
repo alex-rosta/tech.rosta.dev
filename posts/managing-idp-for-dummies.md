@@ -66,8 +66,24 @@ If you deviate too many times from standard, it will be a nightmare to maintain.
 Always use this, SP's should cache SAML metadata or OIDC configuration documents from endpoints and the IdP should do the same, you should be able to update them without having to reconfigure the SP or IdP.
 Imagine rotating your signing key, and having to update hundreds of SP's IdP metadata files...
 
-## Third Party Lookups
+## Querying Additional User Info
+
+### LDAP
+
+The best choice imo if you have a large user base and need to query additional user information. Use it to enrich claims, such as department, role, etc. Offload this entirely to a different service entity, such as Active Directory or OpenLDAP. Something like that should already be in place in your organization.
 
 ## Automation
 
+Onboarding a new application should be simple and quick. In a dream scenario with a standardized set of claims, this process should be entirely hands-off.
+
+- If you can, automate the onboarding process with a self-service portal where application owners can register their applications, specify required claim-profiles and get instant access SSO
+- Use tools like Terraform or Ansible to manage your IdP configuration as code, allowing for version control and easy rollbacks.
+
+Emphasize to the application owners the importance of following the standard claim profiles and metadata parsing rules. Otherwise this will have to be manually done.
+
 ## Authorization
+
+The IdP *should* never be responsible for authorization to the application. It should only be responsible for authentication and providing claims to the application.
+The application should never expect the IdP to handle authorization, unless explicitly stated in the agreement. In that case, you **must** lookup the user in your catalog, **never** use initial claims provided by the third party authentication method as "pass-through".
+
+You have to be aware when the application verifies claims sent against their own DB, and when it does not.
