@@ -50,7 +50,7 @@ This is the most important thing for scalability.
 The best way I have found to do this is to set a standard profile for all applications, and then allow deviation if necessary.
 
 Find attributes that are common across your organization. Such as email, an employee ID etc. Build group-based claims around departments, roles etc. This is more IAM related, but the bottleneck is always going to be how much claims varies across applications.
-If you can adhere to a standard early on, and build authorization groups around already existing organzational structures, you are bound for success.
+If you can adhere to a standard early on, and build authorization groups around already existing organizational structures, you are bound for success.
 
 ### Deviation from Standard
 
@@ -63,7 +63,7 @@ If you deviate too many times from standard, it will be a nightmare to maintain.
 
 ### URL based metadata
 
-Always use this, SP's should cache SAML metadata or OIDC configuration documents, and you should be able to update them without having to reconfigure the SP.
+Always use this, SP's should cache SAML metadata or OIDC configuration documents from endpoints and the IdP should do the same, you should be able to update them without having to reconfigure the SP or IdP.
 Imagine rotating your signing key, and having to update hundreds of SP's IdP metadata files...
 
 ## Third Party Lookups
