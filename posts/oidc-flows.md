@@ -131,7 +131,8 @@ The flow is similar to the Authorization Code Flow, but with the subtraction of 
 1. The client generates a `code_verifier`, which is a random string each time.
 2. The client then creates a `code_challenge` by hashing the `code_verifier` using SHA-256.
 3. The client sends the `code_challenge` along with the authorization request to the authorization server.
-   Example: `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=CLIENT_ID&redirect_uri=https://yourapp.com/callback&scope=openid&code_challenge=CODE_CHALLENGE&code_challenge_method=S256` (make sure this is supported by the OIDC provider, which is the case for Google).
+   `/o/oauth2/v2/auth?response_type=code&client_id=CLIENT_ID&redirect_uri=https://yourapp.com/callback&scope=openid&code_challenge=CODE_CHALLENGE&code_challenge_method=S256`
+   **(make sure this is supported by the OIDC provider, which is the case for Google)**.
 4. After the user authenticates and the authorization server redirects back to the `redirect_uri` with an authorization code, the client sends a POST request to the `token_endpoint` with the following parameters:
    - `grant_type=authorization_code`
    - `code=AUTHORIZATION_CODE`
