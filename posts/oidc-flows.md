@@ -9,7 +9,8 @@ Let's go over some OIDC flows, what makes them different, and when to use each o
 
 ## Basics
 
-OpenID Connect (OIDC) is an authentication layer built on top of OAuth 2.0. It allows clients to verify the identity of users based on the authentication performed by an authorization server. OIDC introduces the concept of an ID token, which is a JSON Web Token (JWT) that contains user information.
+Ever visited a website which asked you to log in with Google, Facebook, or another identity provider? That's OpenID Connect (OIDC) in action. It leverages another entity to handle authentication. Which means you don't have to deal with all the security, GDPR compliance and other headaches.
+But how does it work under the hood?
 
 To understand OIDC on a basic level, we can break a `.well-known/openid-configuration` document together, which describes the endpoints and capabilities of an OIDC provider.
 
@@ -141,4 +142,4 @@ The flow is similar to the Authorization Code Flow, but with the subtraction of 
 
 ## Try to always stay OIDC conformant
 
-OIDC is a standard, and while it allows for some flexibility, it's best to stick to the standard flows and parameters. This ensures compatibility with various OIDC providers and libraries. If you find yourself needing to deviate from the standard, consider whether it's worth rewriting the whole auth the next time another OIDC provider is knocking on the door.
+OIDC is a standard, and while it allows for some flexibility, it's best to stick to the standard flows and parameters. This ensures compatibility with various OIDC providers and libraries. If you find yourself needing to deviate from the standard, consider whether it's worth rewriting the whole auth the next time another OIDC provider is knocking on the door. :wink:
