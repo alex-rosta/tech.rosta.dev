@@ -1,6 +1,6 @@
 ---
 title: "Deep Dive into SAML"
-tags: "saml, authentication, identity management"
+tags: "saml, authentication, identity"
 created: 2025-07-23
 updated: 2025-07-23
 ---
