@@ -8,26 +8,30 @@ In this post, I want to share the various technologies and infrastructure I rely
 
 ## Cloud Providers
 
-### Cloudflare
+### [Cloudflare](https://www.cloudflare.com)
 
 - **Usage**: DNS management, CDN, and security.
 - **Note**: R2, Workers, Pages, Proxies, and geoblocking. It's really a Swiss Army knife for web infrastructure. :shield:
 
-### Civo
+### [Civo](https://www.civo.com)
 
 - **Usage**: Kubernetes clusters and managed databases.
 - **Note**: Focused on simplicity and ease of use for developers. Using it primarily for K3S with their Terraform provider. Check out this [blog post](https://tech.rosta.dev/post/civo-terraform) for my implementation. :computer:
 
-### Akeyless
+### [Akeyless](https://www.akeyless.io)
 
 - **Usage**: Secrets management and encryption.
 - **Note**: Retrieve your secrets securely using API calls, works great in your pipelines. :closed_lock_with_key:
 
-### Fly.io
+### [Fly.io](https://fly.io)
 
 - **Usage**: Application hosting and serverless functions.
 - **Note**: Great for small apps and services, especially with their free tier. I use it for hosting some of my personal projects. :rocket:
 
-### Proton
+### [Proton](https://proton.me)
 
 - **Usage**: Email hosting :email:
+
+### [Eraser.io](https://eraser.io)
+
+- **Usage**: Documentation :book:
