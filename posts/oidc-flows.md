@@ -5,7 +5,7 @@ updated: 2025-07-24
 tags: "oidc, authentication, identity"
 ---
 Let's go over some OIDC flows, what makes them different, and when to use each one.
-![image](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/OpenID_logo_2.svg/1200px-OpenID_logo_2.svg.png)
+![image](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/OpenID_logo.svg/1280px-OpenID_logo.svg.png)
 
 ## Basics
 
