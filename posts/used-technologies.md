@@ -45,3 +45,7 @@ The stack I most commonly use for my personal projects and infrastructure.
 ### [Ansible](https://www.ansible.com)
 
 ### [Terraform](https://www.terraform.io)
+
+## Deployments and CI/CD
+
+[GitHub Actions](https://github.com/features/actions)
