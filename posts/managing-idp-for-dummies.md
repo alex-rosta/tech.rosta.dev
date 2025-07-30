@@ -74,7 +74,7 @@ The best choice imo if you have a large user base and need to query additional u
 
 ## Automation
 
-Onboarding a new application should be simple and quick. In a dream scenario with a standardized set of claims, this process should be entirely hands-off.
+Onboarding a new application should be simple and quick. In a dream scenario with a standardized set of claims, this process should be entirely hands-off for you.
 
 - If you can, automate the onboarding process with a self-service portal where application owners can register their applications, specify required claim-profiles and get instant access SSO
 - Use tools like Terraform or Ansible to manage your IdP configuration as code, allowing for version control and easy rollbacks.

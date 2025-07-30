@@ -4,7 +4,7 @@ tags: "welcome, personal, it-infrastructure"
 created: 2025-07-21
 updated: 2025-07-23
 ---
-In this post, I want to share the various technologies and infrastructure I rely on in my personal projects, usually with generous free tiers or open-source options.
+The stack I most commonly use for my personal projects and infrastructure.
 
 ## Cloud Providers
 
@@ -35,3 +35,13 @@ In this post, I want to share the various technologies and infrastructure I rely
 ### [Eraser.io](https://eraser.io)
 
 - **Usage**: Documentation :book:
+
+## Languages and Frameworks
+
+### [Python](https://www.python.org)
+
+### [Go](https://golang.org)
+
+### [Ansible](https://www.ansible.com)
+
+### [Terraform](https://www.terraform.io)
