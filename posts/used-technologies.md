@@ -48,4 +48,4 @@ The stack I most commonly use for my personal projects and infrastructure.
 
 ## Deployments and CI/CD
 
-[GitHub Actions](https://github.com/features/actions)
+### [GitHub Actions](https://github.com/features/actions)
