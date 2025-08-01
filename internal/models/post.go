@@ -13,16 +13,3 @@ type Post struct {
 	UpdatedAt time.Time         `json:"updated_at"`
 	Metadata  map[string]string `json:"metadata"`
 }
-
-func NewPost(slug, title, content string) *Post {
-	now := time.Now()
-	return &Post{
-		Slug:      slug,
-		Title:     title,
-		Content:   content,
-		Tags:      []string{},
-		CreatedAt: now,
-		UpdatedAt: now,
-		Metadata:  make(map[string]string),
-	}
-}

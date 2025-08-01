@@ -101,7 +101,7 @@ Example SAML authentication request:
 </samlp:AuthnRequest>
 ```
 
-IdP receives the request and takes note of the `Issuer` element, which identifies the SP. User logs in using one of the authentication methods. Let's say [Freja eID](https://frejaeid.com/) in this case.
+SP sends this request to `https://idp.com/saml/sso`. IdP receives the request and takes note of the `Issuer` element, which identifies the SP. User logs in using one of the provided authentication methods. Let's say [Freja eID](https://frejaeid.com/) in this case.
 
 Freja eID returns multiple attributes about the user, such as full name user personal number etc.
 The IdP creates a SAML assertion containing the user's identity information and signs it with its private key.
@@ -157,3 +157,17 @@ The assertion contains the following key elements:
 - `saml:Subject`: Contains the `NameID` element, in this case **transient**. Which means it's a randomly generated identifier that is unique to the session. If it was **persistent**, it would be a stable identifier for the SP verify the user based on this string value.
 
 This is all it takes for a successful SAML authentication flow. The SP receives the assertion, verifies the signature using the IdP's public key, and extracts the user's identity information. All using XML based protocols.
+
+## Nice to know
+
+### saml:AuthnContextClassRef
+
+The `saml:AuthnContextClassRef` element specifies the authentication method used by the IdP. In the example, it is set to `freja-eid`, which indicates that the user authenticated using Freja eID. This can be useful for the SP to apply different authorization rules based on the authentication method used. Like step-up authentication or similar.
+
+### NameID and Claims
+
+The `NameID` element in the SAML assertion is used to uniquely identify the user. It can have different formats, such as `transient`, `persistent`, or `email`. The format is specified in the `Format` attribute of the `NameID` element. This value can sometimes alone be enough to identify the user, but often the SP will also rely on the attributes provided in the `saml:AttributeStatement` to get more information about the user. Like groups or other user information.
+
+### RelayState
+
+In some cases the SP may provide a `RelayState` parameter in the authentication request. This is used to tell the IdP where to redirect the user after successful auth. Usually this is to the application page where the user were before the redirect to the IdP. However, this is completely optional and can be omitted if not needed.
