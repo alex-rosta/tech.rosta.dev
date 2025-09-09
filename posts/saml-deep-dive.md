@@ -87,7 +87,7 @@ Sometimes the SP may advertise an encryption certificate, but I feel this is ove
 
 ## Let's Walk Through a SAML Flow
 
-User accesses an application (SP) that requires authentication. The SP checks if the user is authenticated. If not, it initiates a SAML authentication request.
+User accesses an SP that requires authentication. The SP checks if the user is authenticated. If not, it initiates a SAML authentication request.
 
 Example SAML authentication request:
 
